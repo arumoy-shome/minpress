@@ -1,0 +1,19 @@
+{
+  "name": "minpress",
+  "version": "0.0.1",
+  "description": "Minpress: A mini implementation of Express",
+  "scripts": {
+    "test": "make test"
+  },
+  "dependencies": {
+    "underscore": "1.x"
+  },
+  "devDependencies": {
+    "mocha": "1.x",
+    "consolidate": "0.x",
+    "jade": "1.x",
+    "morgan": "*",
+    "serve-static": "*",
+    "nodemon": "1.x"
+  }
+}
