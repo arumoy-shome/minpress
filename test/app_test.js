@@ -1,6 +1,6 @@
-var assert = require('assert'),
-    App = require('../lib/app').App
-    // Response = require('../lib/response').Response
+var assert = require('assert')
+var App = require('../lib/app').App
+var Response = require('../lib/response').Response
 
 describe('App', function() {
   beforeEach(function() {
@@ -17,7 +17,7 @@ describe('App', function() {
     assert(called)
   })
 
-it('handle POST', function() {
+  it('handle POST', function() {
     var called
 
     this.app.post('/', function() { called = true })
@@ -27,7 +27,7 @@ it('handle POST', function() {
     assert(called)
   })
 
-it('handle PUT', function() {
+  it('handle PUT', function() {
     var called
 
     this.app.put('/', function() { called = true })
@@ -37,7 +37,7 @@ it('handle PUT', function() {
     assert(called)
   })
 
-it('handle DELETE', function() {
+  it('handle DELETE', function() {
     var called
 
     this.app.delete('/', function() { called = true })
@@ -57,7 +57,7 @@ it('handle DELETE', function() {
     assert(res.send)
   })
 
-  xit('error is caught', function () {
+  it('error is caught', function () {
     var err = new Error('Ouch')
     err.status = 500
 
@@ -65,12 +65,12 @@ it('handle DELETE', function() {
 
     var status, body
     this.app.handle({ method: 'GET', url: '/' },
-                    { // Response object (res)
-                      send: function(_status, _body) {
-                        status = _status
-                        body = _body
-                      }
-                    })
+      { // Response object (res)
+        send: function(_status, _body) {
+          status = _status
+          body = _body
+        }
+      })
 
     assert.equal(status, err.status)
     assert.equal(body, err.message)
