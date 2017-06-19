@@ -27,7 +27,7 @@ describe('Router', function() {
     })
   })
 
-  xit('handle GET', function() {
+  it('handle GET', function() {
     var called
 
     this.router.route('GET', '/hi', function() { called = true })
@@ -37,7 +37,7 @@ describe('Router', function() {
     assert(called, "Should call get route")
   })
 
-  xit('handle POST', function() {
+  it('handle POST', function() {
     var getCalled, postCalled
 
     this.router.route('GET', '/',  function() { getCalled = true })
@@ -49,7 +49,7 @@ describe('Router', function() {
     assert(postCalled, "Should call post route")
   })
 
-  xit('handle not found', function() {
+  it('handle not found', function() {
     var self = this
 
     assert.throws(function() {
