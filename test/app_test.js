@@ -2,81 +2,81 @@ var assert = require('assert')
 var App = require('../lib/app').App
 var Response = require('../lib/response').Response
 
-describe('App', function() {
-  beforeEach(function() {
+describe('App',() => {
+  beforeEach(() => {
     this.app = new App()
   })
 
-  it('handle GET', function() {
+  it('handle GET',() => {
     var called
 
-    this.app.get('/', function() { called = true })
+    this.app.get('/',() => { called = true })
 
-    this.app.handle({ method: 'GET', url: '/' }, {})
+    this.app.handle({ method: 'GET', url: '/' }, new Response)
 
     assert(called)
   })
 
-  it('handle POST', function() {
+  it('handle POST',() => {
     var called
 
-    this.app.post('/', function() { called = true })
+    this.app.post('/',() => { called = true })
 
-    this.app.handle({ method: 'POST', url: '/' }, {})
+    this.app.handle({ method: 'POST', url: '/' }, new Response)
 
     assert(called)
   })
 
-  it('handle PUT', function() {
+  it('handle PUT', () => {
     var called
 
-    this.app.put('/', function() { called = true })
+    this.app.put('/',() => { called = true })
 
-    this.app.handle({ method: 'PUT', url: '/' }, {})
+    this.app.handle({ method: 'PUT', url: '/' }, new Response)
 
     assert(called)
   })
 
-  it('handle DELETE', function() {
+  it('handle DELETE', () => {
     var called
 
-    this.app.delete('/', function() { called = true })
+    this.app.delete('/', () => { called = true })
 
-    this.app.handle({ method: 'DELETE', url: '/' }, {})
+    this.app.handle({ method: 'DELETE', url: '/' }, new Response)
 
     assert(called)
   })
 
-  it('handle all methods', function() {
+  it('handle all methods', () => {
     var called
 
-    this.app.all('/', function() { called = true })
+    this.app.all('/', () => { called = true })
 
-    this.app.handle({ method: 'DELETE', url: '/' }, {})
+    this.app.handle({ method: 'DELETE', url: '/' }, new Response)
 
     assert(called)
   })
 
-  it('res has send method', function() {
+  it('res has send method', () => {
     var res
 
-    this.app.get('/', function(_req, _res) { res = _res })
+    this.app.get('/', (_req, _res) => { res = _res })
 
-    this.app.handle({ method: 'GET', url: '/' }, {})
+    this.app.handle({ method: 'GET', url: '/' }, new Response)
 
     assert(res.send)
   })
 
-  it('error is caught', function () {
+  it('error is caught',  () => {
     var err = new Error('Ouch')
     err.status = 500
 
-    this.app.get('/', function() { throw err })
+    this.app.get('/', () => { throw err })
 
     var status, body
     this.app.handle({ method: 'GET', url: '/' },
       { // Response object (res)
-        send: function(_status, _body) {
+        send: (_status, _body) => {
           status = _status
           body = _body
         }
@@ -86,10 +86,10 @@ describe('App', function() {
     assert.equal(body, err.message)
   })
 
-  xit('call middlewares', function() {
+  xit('call middlewares', () => {
     var called
 
-    this.app.use(function(req, res, next) { next() })
+    this.app.use((req, res, next) => { next() })
     this.app.use(function() { called = true })
 
     this.app.handle({ method: 'GET', url: '/' }, {})
