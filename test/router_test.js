@@ -1,13 +1,13 @@
-var assert = require('assert'),
-  Router = require('../lib/router').Router
+const assert = require('assert')
+const { Router } = require('../lib/router')
 
-describe('Router', function() {
-  beforeEach(function() {
+describe('Router', () => {
+  beforeEach(() => {
     this.router = new Router()
   })
 
-  it('stores routes', function () {
-    var callback = function() {}
+  it('stores routes', () => {
+    const callback = () => {}
     this.router.route('GET', '/', callback)
     this.router.route('POST', '/login', callback)
 
@@ -27,21 +27,21 @@ describe('Router', function() {
     })
   })
 
-  it('handle GET', function() {
-    var called
+  it('handle GET', () => {
+    let called = false
 
-    this.router.route('GET', '/hi', function() { called = true })
+    this.router.route('GET', '/hi', () => { called = true })
 
     this.router.handle({ method: 'GET', url: '/hi' }, {})
 
     assert(called, "Should call get route")
   })
 
-  it('handle POST', function() {
+  it('handle POST', () => {
     var getCalled, postCalled
 
-    this.router.route('GET', '/',  function() { getCalled = true })
-    this.router.route('POST', '/', function() { postCalled = true })
+    this.router.route('GET', '/',() => { getCalled = true })
+    this.router.route('POST', '/',() => { postCalled = true })
 
     this.router.handle({ method: 'POST', url: '/' }, {})
 
@@ -49,13 +49,13 @@ describe('Router', function() {
     assert(postCalled, "Should call post route")
   })
 
-  it('handle not found', function() {
+  it('handle not found',() => {
     var self = this
 
-    assert.throws(function() {
+    assert.throws(() => {
       self.router.handle({ method: 'GET', url: '/' }, {})
-    }, function(err) {
-      return err.status == 404
-    }, "Should throw 404 error")
+    },
+      (err) =>  err.status == 404 ,
+      "Should throw 404 error")
   })
 })
