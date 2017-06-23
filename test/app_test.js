@@ -12,7 +12,7 @@ describe('App',() => {
 
     this.app.get('/',() => { called = true })
 
-    this.app.handle({ method: 'GET', url: '/' }, new Response)
+    this.app.handle({ method: 'GET', url: '/' }, {})
 
     assert(called)
   })
@@ -22,7 +22,7 @@ describe('App',() => {
 
     this.app.post('/',() => { called = true })
 
-    this.app.handle({ method: 'POST', url: '/' }, new Response)
+    this.app.handle({ method: 'POST', url: '/' }, {})
 
     assert(called)
   })
@@ -32,7 +32,7 @@ describe('App',() => {
 
     this.app.put('/',() => { called = true })
 
-    this.app.handle({ method: 'PUT', url: '/' }, new Response)
+    this.app.handle({ method: 'PUT', url: '/' }, {})
 
     assert(called)
   })
@@ -42,7 +42,7 @@ describe('App',() => {
 
     this.app.delete('/', () => { called = true })
 
-    this.app.handle({ method: 'DELETE', url: '/' }, new Response)
+    this.app.handle({ method: 'DELETE', url: '/' }, {})
 
     assert(called)
   })
@@ -52,7 +52,7 @@ describe('App',() => {
 
     this.app.all('/', () => { called = true })
 
-    this.app.handle({ method: 'DELETE', url: '/' }, new Response)
+    this.app.handle({ method: 'DELETE', url: '/' }, {})
 
     assert(called)
   })
@@ -62,7 +62,7 @@ describe('App',() => {
 
     this.app.get('/', (_req, _res) => { res = _res })
 
-    this.app.handle({ method: 'GET', url: '/' }, new Response)
+    this.app.handle({ method: 'GET', url: '/' }, {})
 
     assert(res.send)
   })
