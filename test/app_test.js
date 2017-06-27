@@ -1,26 +1,26 @@
-var assert = require('assert')
-var App = require('../lib/app').App
-var Response = require('../lib/response').Response
+const assert = require('assert')
+const App = require('../lib/app').App
+const { Response } = require('../lib/response')
 
-describe('App',() => {
+describe('App', () => {
   beforeEach(() => {
     this.app = new App()
   })
 
-  it('handle GET',() => {
-    var called
+  it('handle GET', () => {
+    let called
 
-    this.app.get('/',() => { called = true })
+    this.app.get('/', () => { called = true })
 
     this.app.handle({ method: 'GET', url: '/' }, {})
 
     assert(called)
   })
 
-  it('handle POST',() => {
-    var called
+  it('handle POST', () => {
+    let called
 
-    this.app.post('/',() => { called = true })
+    this.app.post('/', () => { called = true })
 
     this.app.handle({ method: 'POST', url: '/' }, {})
 
@@ -28,9 +28,9 @@ describe('App',() => {
   })
 
   it('handle PUT', () => {
-    var called
+    let called
 
-    this.app.put('/',() => { called = true })
+    this.app.put('/', () => { called = true })
 
     this.app.handle({ method: 'PUT', url: '/' }, {})
 
@@ -38,7 +38,7 @@ describe('App',() => {
   })
 
   it('handle DELETE', () => {
-    var called
+    let called
 
     this.app.delete('/', () => { called = true })
 
@@ -48,7 +48,7 @@ describe('App',() => {
   })
 
   it('handle all methods', () => {
-    var called
+    let called
 
     this.app.all('/', () => { called = true })
 
@@ -58,7 +58,7 @@ describe('App',() => {
   })
 
   it('res has send method', () => {
-    var res
+    let res
 
     this.app.get('/', (_req, _res) => { res = _res })
 
@@ -67,19 +67,21 @@ describe('App',() => {
     assert(res.send)
   })
 
-  it('error is caught',  () => {
-    var err = new Error('Ouch')
+  it('error is caught', () => {
+    const err = new Error('Ouch')
     err.status = 500
 
     this.app.get('/', () => { throw err })
 
-    var status, body
+    let status
+    let body
+
     this.app.handle({ method: 'GET', url: '/' },
       { // Response object (res)
         send: (_status, _body) => {
           status = _status
           body = _body
-        }
+        },
       })
 
     assert.equal(status, err.status)
@@ -87,10 +89,10 @@ describe('App',() => {
   })
 
   xit('call middlewares', () => {
-    var called
+    let called
 
     this.app.use((req, res, next) => { next() })
-    this.app.use(function() { called = true })
+    this.app.use(() => { called = true })
 
     this.app.handle({ method: 'GET', url: '/' }, {})
 
